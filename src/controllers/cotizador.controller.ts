@@ -122,3 +122,12 @@ export const descargarPdfCotizacionPorId = async (req: Request, res: Response) =
     return res.status(500).json({ error: 'Error interno al generar el PDF de la cotización.' });
   }
 };
+
+export const obtenerPaquetes = async (req: Request, res: Response) => {
+  try {
+    const paquetes = await PaqueteModel.find();
+    return res.status(200).json(paquetes);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al obtener los paquetes.' });
+  }
+};
