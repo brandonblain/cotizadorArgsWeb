@@ -123,11 +123,27 @@ export const descargarPdfCotizacionPorId = async (req: Request, res: Response) =
   }
 };
 
+
 export const obtenerPaquetes = async (req: Request, res: Response) => {
   try {
     const paquetes = await PaqueteModel.find();
     return res.status(200).json(paquetes);
   } catch (error) {
     return res.status(500).json({ error: 'Error al obtener los paquetes.' });
+  }
+};
+
+export const obtenerPaquetePorId = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const paquete = await PaqueteModel.findById(id);
+
+    if (!paquete) {
+      return res.status(404).json({ error: 'Paquete no encontrado.' });
+    }
+
+    return res.status(200).json(paquete);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al obtener el paquete.' });
   }
 };
