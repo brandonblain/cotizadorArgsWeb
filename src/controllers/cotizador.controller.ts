@@ -133,17 +133,16 @@ export const obtenerPaquetes = async (req: Request, res: Response) => {
   }
 };
 
-export const obtenerPaquetePorId = async (req: Request, res: Response) => {
+export const obtenerCotizacionPorId = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const paquete = await PaqueteModel.findById(id);
+    const cotizacion = await ClienteCotizacionModel.findById(id);
 
-    if (!paquete) {
-      return res.status(404).json({ error: 'Paquete no encontrado.' });
+    if (!cotizacion) {
+      throw new Error('No se encontró la cotización con el ID proporcionado.');
     }
-
-    return res.status(200).json(paquete);
+    return res.status(200).json(cotizacion);
   } catch (error) {
-    return res.status(500).json({ error: 'Error al obtener el paquete.' });
+    return res.status(500).json({ error: 'Error al obtener la cotización.' });
   }
-};
+}
